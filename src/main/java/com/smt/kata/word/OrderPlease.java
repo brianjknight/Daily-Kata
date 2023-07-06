@@ -33,9 +33,52 @@ package com.smt.kata.word;
  * @updates:
  ****************************************************************************/
 public class OrderPlease {
-
-	
 	public String reorder(String phrase) {
-        return phrase;
+		
+		if (phrase == null || phrase.isEmpty()) {
+			return "";
+		}
+		
+		// Split phrase into an array.
+		String[] input = phrase.split(" ");
+		
+		// Create new array of equal length.
+		String[] ordered = new String[input.length];
+		
+		// Index location
+		int index = 0;
+		
+		// Iterate the input array to first add words with no digits.
+		for (String s : input) {
+			if(!s.matches("\\d+")) {
+				ordered[index] = s;
+				index++;
+			}
+		}
+		
+		// For each word in input that does contain digits: 
+		for (String s : input) {
+			// Find the digit in the word
+			for (int i=0; i<s.length(); i++) {
+				char c = s.charAt(i);
+				if (Character.isDigit(c)) {
+					// Insert the word into the ordered array and index location.
+					int ind = Character.getNumericValue(c) + index - 1;
+					ordered[ind] = s;
+					break;
+				}
+			}
+			
+		}
+		
+		// Concatenate the ordered array and return the ordered string.
+		String result = "";
+		
+		for (String s : ordered) {
+			result += s + " ";
+		}
+		
+		// Return result removing trailing space.
+        return result.trim();
     }
 }

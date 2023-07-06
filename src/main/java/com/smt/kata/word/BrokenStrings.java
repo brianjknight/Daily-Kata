@@ -44,6 +44,52 @@ public class BrokenStrings {
 	 * @return Collection of sliced words
 	 */
 	public List<String> slice(String phrase, int k) {
-		return new ArrayList<>();
+		List<String> result = new ArrayList<>();
+		
+		if (phrase==null || phrase.isEmpty() || k < 1) {
+			return result;
+		}
+		
+		// Remove leading and trailing spaces
+		String trimmed = phrase.trim();
+		
+		// Split the phrase into an array.
+		String[] words = trimmed.split("\\s");
+		
+		// If the first word is longer than k return empty list otherwise start a new line to concatenate.
+		if (words[0].length() > k) {
+			return result;
+		}
+		String line = words[0];
+		
+		int curInd = 1;
+		int nextInd = 1;
+		
+		// While their are words left append next words to line if it if less than k.
+		while (curInd < words.length) {
+			String nextWord = words[nextInd];
+			// If any word is longer than k, return an empty List.
+			if (nextWord.length() > k) {
+				return new ArrayList<>();
+			}
+			// Append a space and the next word if it is less than k.
+			else if (line.length() + 1 + nextWord.length() <= k) {
+				line = line + " " + nextWord;
+				if (nextInd == words.length -1) {
+					result.add(line);
+					break;
+				}
+				nextInd++;				
+			}
+			// Else add the current line to the result, advance the curIndex pointer, and start a new line. 
+			else {
+				result.add(line);
+				curInd = nextInd;
+				line = "";
+			}
+		}
+		
+		
+		return result;
 	}
 }

@@ -2,6 +2,7 @@ package com.smt.kata.word;
 
 // JDK 11.x
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 /****************************************************************************
@@ -54,6 +55,20 @@ public class SubstringConcatenationMatching {
 	 * @return List of matching indexes
 	 */
 	public List<Integer> find(String phrase, String[] words) {
+		// 1. For the given array of words, find each possible combination of concatenated strings.
+			
+			// a. For each word/index in the array, create a new string starting with that word.
+			// b. Of the remaining words/indices, find all possible combinations of concatenated strings.
+				// i. How can I use recursion to check all possibilities?
+		
+			
+		
+		// 2. For each concatenated word, find its index location within the given phrase.
+			// If the phrase contains the concatenated word, add the index location to an array list to return as the result.
+		
+		
+		
+		
 		return new ArrayList<>();
 	}
 }

@@ -36,7 +36,45 @@ public class ClosestPoints {
 	 * @return Closest points
 	 */
 	public Integer[][] calculateClosestPoints(Integer[][] points) {
-		// Return the pairs with the min distance
-		return points;
+		Integer[][] result = new Integer[2][];
+		Double minDistance = Double.MAX_VALUE;
+		
+		// Check for null or empty input.
+		if (points == null || points.length == 0) {
+			return new Integer[0][];
+		}
+		
+		// Outer loop to getting starting point to calculate distance.
+		for (int i=0; i<points.length-1; i++) {
+			Integer[] curPoint = points[i];
+			
+			// Inner loop to calculate the distance for all remaining points.
+			for (int j=i+1; j<points.length; j++) {
+				Integer[] nextPoint = points[j];
+				
+				// Find the distance between the 2 points.
+				Double curDist = getDistance(curPoint, nextPoint);
+				
+				// If the distance is shorter than the current minimum distance calculated, save the points in result.
+				if (curDist < minDistance) {
+					minDistance = curDist;
+					result[0] = curPoint;
+					result[1] = nextPoint;
+				}
+			}
+		}
+		return result;
+	}
+	
+	// Helper method to calculate the distance between 2 points.
+	private Double getDistance(Integer[] p1, Integer[] p2) {
+		Double dist = 0.0;
+		
+		Double x = Math.pow(p1[0] - p2[0], 2);
+		Double y = Math.pow(p1[1] - p2[1], 2);		
+				
+		dist = Math.sqrt(x+y);
+		
+		return dist;
 	}
 }

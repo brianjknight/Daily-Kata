@@ -2,7 +2,9 @@ package com.smt.kata.word;
 
 // JDK 11.x
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /****************************************************************************
  * <b>Title</b>: WordSubsets.java
@@ -55,14 +57,86 @@ import java.util.List;
  ****************************************************************************/
 public class WordSubsets {
 	
-	/**
+	/** 
 	 * Finds the matching patterns in the collection of words.  The includes can 
 	 * be in any order for the match
-	 * @param words Words to search
-	 * @param searchVal Patterns to search fo
+	 * @param words1 Words to search
+	 * @param patterns Patterns to search for
 	 * @return Collection of words that match the patterns
 	 */
-	public List<String> find(String[] words, String[] searchVal) {
-		return new ArrayList<>();
+	public List<String> find(String[] words1, String[] patterns) {
+		List<String> result = new ArrayList<>();
+		
+		if (words1==null || words1.length==0 || patterns==null || patterns.length==0) {
+			return result;
+		} 
+		
+		// Iterate each word in words1 array
+		for (String word : words1) {
+			if (word==null || word.isEmpty()) {
+				continue;
+			}
+			 
+			boolean allMatch = true;
+			
+			// Map the word for count of characters.
+			Map<Character, Integer> wordMap = mapWord(word);
+
+			// Iterate each pattern in words2
+			for (String pattern : patterns) {				
+				if (pattern==null) {
+					continue;
+				}
+				
+				// Map the current pattern for the count of characters.
+				Map<Character, Integer> patternMap = mapWord(pattern);
+				
+				// If a pattern is not a match for the word, set allMatch to false and break the loop.
+				if (!patternMatch(wordMap, patternMap)) {
+					allMatch = false;
+					break;
+				}
+			} 
+			
+			// If allMatch is still true, add the current word to the result list.
+			if (allMatch) { 
+				result.add(word.toLowerCase());
+			}
+		}	
+		
+		return result;
+	}
+	
+	// Helper method to check if a word contains at least as many characters as a given pattern.
+	public boolean patternMatch(Map<Character, Integer> wordMap, Map<Character, Integer> patternMap) {
+		
+		for (Map.Entry<Character, Integer> entry : patternMap.entrySet()) {
+			char key = entry.getKey();
+			int val = entry.getValue();
+			
+			if (!wordMap.containsKey(key) || wordMap.get(key) < val) {
+				return false;
+			}
+		}
+		
+		return true;
+	}
+	
+	// Helper method to map a String to count of character occurrences.
+	public Map<Character, Integer> mapWord(String input) {
+		Map<Character, Integer> map = new HashMap<>();
+	
+		for (int i=0; i<input.length(); i++) {
+			char c = Character.toLowerCase(input.charAt(i)); 
+			
+			if (map.containsKey(input.charAt(i))){
+				map.put(c,map.get(c)+1);
+			}
+			else {
+				map.put(c,1);
+			}
+		}
+		
+		return map;
 	}
 }

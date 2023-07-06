@@ -31,7 +31,26 @@ public class MissingLetter {
 	 */
 	public char missingLetter(String[] chars) {
 		
-		return chars[0].charAt(0);
+		// null and empty input check
+		if (chars == null || chars.length == 0) {
+			return '*';
+		}
+		
+		// get the first character
+		char cur = chars[0].charAt(0);
+		
+		// If the next character is not one more than the previous, return the previous plus 1.
+		for (int i=1; i<chars.length; i++) {
+			char next = chars[i].charAt(0);
+			if(cur + 1 != next) {
+				return ++cur;
+			}
+			else {
+				cur = next;
+			}
+		}
+		
+		return '*';
 	}
 
 }

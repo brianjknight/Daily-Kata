@@ -2,7 +2,9 @@ package com.smt.kata.number;
 
 // JDK 11.x
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 /****************************************************************************
  * <b>Title</b>: RunningMedianCalculator.java
@@ -44,7 +46,47 @@ public class RunningMedianCalculator {
 	 * @return
 	 */
 	public List<Double> getMedianValues(int[] values) {
-		return new ArrayList<>(values.length);
+		// Instantiate empty list for the result.
+		List<Double> result = new ArrayList<>();
+		
+		// If the input is null or empty return the empty list.
+		if (values == null || values.length == 0) {
+			return result;
+		}
+		
+		// A running list to add each element of the input array.
+		List<Integer> runningList = new ArrayList<>();
+		
+		// Iterate the input array.
+		for (int i : values) {
+			// Add the current int to the running list.
+			runningList.add(i);
+			
+			// Sort the running list.
+			Collections.sort(runningList);
+			
+			// Find the median and add to the result List
+			Double median = getMedian(runningList);
+			result.add(median);
+		}
+		
+		return result;
 	}
 
+	// Helper method to find the median of a sorted list.
+	private Double getMedian(List<Integer> list) {
+		Double median = 0.0;
+		
+		int len = list.size();
+		
+		if (len%2 == 0) {
+			median = (list.get(len/2) + list.get(len/2-1))/2.0; 
+		}
+		else {
+			median = (double) list.get(len/2);
+		}
+		
+		return median;
+	}
 }
+

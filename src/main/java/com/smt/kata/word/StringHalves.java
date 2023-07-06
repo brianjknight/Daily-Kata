@@ -1,5 +1,7 @@
 package com.smt.kata.word;
 
+import java.util.Objects;
+
 /****************************************************************************
  * <b>Title</b>: StringHalves.java
  * <b>Project</b>: SMT-Kata
@@ -58,6 +60,32 @@ public class StringHalves {
 	 * @return True if the numbers match.  False otherwise;
 	 */
 	public boolean calculate(String s) {
-		return s.length() == 0;
+		if (Objects.isNull(s) || s.isEmpty() || s.length() < 2) {
+			return false;
+		}
+		
+		String a = s.substring(0,s.length()/2);
+		String b = s.substring(s.length()/2);
+		
+		int aCount = 0;
+		int bCount = 0;
+		
+		char aLower;
+		char bLower;
+		
+		for (int i=0; i<a.length(); i++) {
+			aLower = Character.toLowerCase(a.charAt(i));
+			bLower = Character.toLowerCase(b.charAt(i));
+			
+			if (aLower == 'a' || aLower == 'e' || aLower == 'i' || aLower == 'o' || aLower == 'u') {
+				aCount++;
+			}
+			if (bLower == 'a' || bLower == 'e' || bLower == 'i' || bLower == 'o' || bLower == 'u') {
+				bCount++;
+			}
+			
+		}
+		
+		return aCount==bCount;
 	}
 }

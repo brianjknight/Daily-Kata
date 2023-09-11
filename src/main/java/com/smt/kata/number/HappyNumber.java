@@ -41,6 +41,28 @@ public class HappyNumber {
 	 * @return True if the number is happy.  False otherwise
 	 */
 	public boolean isHappy(int val) {
-		return val == 0;
+		// use a recursive method with base cases 1 and 4
+		if (val == 1) {
+			return true;
+		}
+		if (val == 4 || val == 0) {
+			return false;
+		}
+		
+		int num = squareSum(val);
+		
+		return isHappy(num);
+	}
+	
+	public int squareSum(int n) {
+		char[] nums = String.valueOf(n).toCharArray();
+		
+		int result = 0;
+		
+		for (char c : nums) {
+			result += Math.pow(Character.getNumericValue(c), 2); 
+		}
+		
+		return result;
 	}
 }

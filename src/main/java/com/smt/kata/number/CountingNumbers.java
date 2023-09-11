@@ -1,5 +1,7 @@
 package com.smt.kata.number;
 
+import java.util.Objects;
+
 /****************************************************************************
  * <b>Title</b>: CountingNumbers.java
  * <b>Project</b>: SMT-Kata
@@ -43,6 +45,39 @@ public class CountingNumbers {
 	 * @return Number of smaller elements for each item in the source array
 	 */
 	public int[] calculate(int[] source) {
-		return source;
+		// null & empty check
+		if(Objects.isNull(source) || source.length == 0) {
+			return new int[0];
+		}
+		
+		// make a new array to keep track of counts
+		int [] result = new int[source.length];
+		
+		//use a nest loop to check for remaining elements after each element
+		for (int i=0; i<source.length; i++) {
+			int count = 0;
+			
+			// check elements before the last index
+			if(i==source.length-1) {
+				for (int j=0; j<source.length-1; j++) {
+					if (source[j] < source[i]) {
+						count++;
+					}
+				}
+				result[i] = count;
+			} 
+			else {
+				// if any remaining elements are less than current increment count.
+				for (int j=i+1; j<source.length; j++) {
+					if (source[j] < source[i]) {
+						count++;
+					}
+				}
+				// set the count for current
+				result[i] = count;
+			}
+			
+		}
+		return result;
 	}
 }

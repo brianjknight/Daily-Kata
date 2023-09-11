@@ -1,5 +1,10 @@
 package com.smt.kata.number;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Objects;
+
 /****************************************************************************
  * <b>Title:</b> NumberSubsets.java
  * <b>Project:</b> SMT-Kata
@@ -32,6 +37,30 @@ public class NumberSubsets {
 	 * @return True if there is a matching pattern.  False otherwise
 	 */
 	public boolean findMataches(int[] elements) {
+		// null and empty check
+		if(Objects.isNull(elements) || elements.length == 0) {
+			return false;
+		}
+		
+		// Sum all elements to see if it can be evenly divided
+		int sum = Arrays.stream(elements).sum();
+		
+		// Divide sum by 2 to get the sub-total for each partition
+		if (sum % 2 > 0) {
+			return false;
+		}
+		int sub = sum / 2;
+		
+		// See if that sub-total can be reached from any combination of nums in the given array.
+		
+		
+		
+		// If yes do the remaining elements also equal the sub-total.
+		
+		
+		
+		
+		
 		return false;
 	}
 }

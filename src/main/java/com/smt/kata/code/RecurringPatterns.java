@@ -3,6 +3,7 @@ package com.smt.kata.code;
 // JDK 11.x
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /****************************************************************************
  * <b>Title</b>: RecurringPatterns.java
@@ -32,8 +33,26 @@ public class RecurringPatterns {
 	 * @return starting location of all patterms
 	 */
 	public List<Integer> count(String word, String pattern) {
+		List<Integer> result = new ArrayList<>(); 
 		
-		return new ArrayList<>();
+		// Null and empty check.
+		if (Objects.isNull(word) || Objects.isNull(pattern) || word.isEmpty() || pattern.isEmpty()) {
+			return result;
+		}
+		
+		// Remove all spaces.
+		word = word.replaceAll(" ", "");
+		
+		// find the index of the pattern in word
+		int index = word.indexOf(pattern);
+		
+		// While loop to continue finding pattern matches.
+		while (index != -1) {
+			result.add(index);
+			index = word.indexOf(pattern,++index);
+		}
+		
+		return result;
 	}
 
 }

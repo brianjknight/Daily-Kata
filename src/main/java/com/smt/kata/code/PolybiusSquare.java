@@ -27,13 +27,41 @@ package com.smt.kata.code;
  ****************************************************************************/
 public class PolybiusSquare {
 
+	// Create an 2D array so that a letter can be found given int value and vice versa.
+	private char[][] letters = {
+			{'a', 'b', 'c', 'd', 'e'},
+            {'f', 'g', 'h', 'i', 'k'},
+            {'l', 'm', 'n', 'o', 'p'},
+            {'q', 'r', 's', 't', 'u'},
+            {'v', 'w', 'x', 'y', 'z'}
+        };
+	
 	/**
 	 * Encodes a sentence into its polybius values
 	 * @param term
 	 * @return
 	 */
 	public String polybiusEncode(String term){
-		return term;
+		// convert input to lowercase
+		String word = term.toLowerCase();
+		
+		//Find each character in the 2D array and convert to 1 based index location.
+		StringBuilder sb = new StringBuilder();
+		
+		for (int i=0; i<word.length(); i++) {
+			char c = word.charAt(i);
+			if (c == ' ') {
+				sb.append(c);
+			}
+			else if (c == 'j') {
+				sb.append(findLetter('i'));
+			}
+			else {
+				sb.append(findLetter(c));
+			}
+		}
+		
+		return sb.toString();
 	}
 	
 	/**
@@ -42,7 +70,42 @@ public class PolybiusSquare {
 	 * @return
 	 */
 	public String decodeValue(String code){
-	    return code;
+		StringBuilder sb = new StringBuilder();
+		
+		// Iterate the encoded value to find each coordinate.
+		for (int i=0; i<code.length()-1; i+=2) {
+			// Check for a space instead of a character
+			if (code.charAt(i) == ' ') {
+				sb.append(" ");
+				i--;
+				continue;
+			}
+			
+			// find row index
+			int r = Character.getNumericValue(code.charAt(i)) - 1;
+			// find column index
+			int c = Character.getNumericValue(code.charAt(i+1)) - 1;
+			// Append letter
+			sb.append(letters[r][c]);
+		}
+		
+	    return sb.toString().trim();
 	}
-
+	
+	/**
+	 * Helper method to find a character.
+	 * @param c
+	 * @return
+	 */
+	private String findLetter(char c) {
+		for (int i=0; i<letters.length; i++) {
+			for (int j=0; j<letters[0].length; j++) {
+				if (letters[i][j] == c) {
+					return "" + (i+1) + (j+1);
+				}
+			}
+		}
+		return "";
+	}
+	
 }

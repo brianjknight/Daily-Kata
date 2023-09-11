@@ -1,5 +1,7 @@
 package com.smt.kata.number;
 
+import java.util.Arrays;
+
 /****************************************************************************
  * <b>Title</b>: ShiftingLetters.java
  * <b>Project</b>: SMT-Kata
@@ -53,8 +55,26 @@ public class ShiftingLetters {
 	 * @return Transformed string.  Returns source if data is invalid
 	 */
 	public String transform(String source, int[] shifts) {
-		return source;
+		if (source == null || source.isEmpty() || shifts == null || shifts.length == 0 || source.length() != shifts.length) {
+			return source;
+		}
 		
+		// Convert source to lowercase char array.
+		char[] letters = source.toLowerCase().toCharArray();
+		
+		// Use a nested loop to shift letters
+		for (int i=0; i<shifts.length; i++) {
+			// Use modulus to find the remainder for simplified shifting.
+			int n = shifts[i] % 26;
+			for (int j=0; j<=i; j++) {
+				if (Character.isLetter(letters[j])) {
+					char c = letters[j];
+					// shift starting from a if addition is greater than z
+					letters[j] = c + n <= 'z' ? (char)(c + n) : (char)(c - 26 + n);	
+				}
+			}
+		}
+		
+		return String.valueOf(letters);
 	}
-
 }

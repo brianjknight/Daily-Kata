@@ -31,6 +31,9 @@ class PalindromeTest {
 	    assertTrue(p.isPalindrome(13331));
 	    assertTrue(p.isPalindrome(0));
 	    assertTrue(p.isPalindrome(11));
+	    assertTrue(p.isPalindrome(-11));
+	    assertTrue(p.isPalindrome(-22));
+	    assertFalse(p.isPalindrome(-123));
 	}
 
 }

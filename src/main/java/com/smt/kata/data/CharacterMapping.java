@@ -36,8 +36,11 @@ public class CharacterMapping {
 	 * @param digitMap The digit make to work against
 	 */
 	public CharacterMapping(Map<Integer, char[]> digitMap) throws InvalidObjectException {
-		super();
-		throw new InvalidObjectException("Change Me");
+		if (digitMap == null || digitMap.size()==0) {
+			throw new InvalidObjectException("Change Me");
+		}
+		
+		this.digitMap = digitMap;
 	}
 
 	/**
@@ -46,6 +49,32 @@ public class CharacterMapping {
 	 * @return concatenated string array
 	 */
 	public String[] add(int[] locations) {
-		return new String[0];
+		if (locations == null || locations.length == 0) {
+			return new String[0];
+		}
+		
+		// find the max array length for given locations
+		int maxLen = 0;
+		for (int i : locations) {
+			if (digitMap.get(i) != null && digitMap.get(i).length > maxLen) maxLen = digitMap.get(i).length; 			
+		}
+		
+		// create a new result array of that size
+		String[] result = new String[maxLen];
+		
+		// iterate each result value
+		for (int i=0; i<result.length; i++) {
+			// check each map value to concatenate the string
+			String temp = "";
+			for (int loc : locations) {
+				char[] cur = digitMap.get(loc);
+				if (cur != null && i<cur.length) {
+					temp += cur[i];
+				}
+			}
+			result[i] = temp;
+		}
+		
+		return result;
 	}
 }

@@ -1,5 +1,7 @@
 package com.smt.kata.data;
 
+import java.util.Objects;
+
 /****************************************************************************
  * <b>Title</b>: Isogram.java
  * <b>Project</b>: Daily-Kata
@@ -27,7 +29,27 @@ public class Isogram {
 	 * @return true if an isogram.  False if empty or not an isogram
 	 */
 	public boolean isValidIsogram(String phrase) {
-        
-        return phrase == null;
+        if (Objects.isNull(phrase) || phrase.isEmpty()) {
+        	return false;
+        }
+		
+		String lower = phrase.toLowerCase();
+		String word = "";
+		
+		// loop the input phrase adding each character to a new string.
+		for (int i=0; i<lower.length(); i++) {
+			char c = lower.charAt(i);
+			
+			//ignore spaces and dashes
+			if (c == ' ' || c == '-') continue;
+			
+			// Return false if the word already contains the character.
+			if (word.indexOf(c) >= 0) return false;
+			
+			word += c;
+			System.out.println(word);
+		}
+		 
+        return true;
     }
 }

@@ -1,5 +1,7 @@
 package com.smt.kata.word;
 
+import java.util.Objects;
+
 /****************************************************************************
  * <b>Title</b>: Palindrome.java
  * <b>Project</b>: SMT-Kata
@@ -23,7 +25,25 @@ public class Palindrome {
 	 * @return
 	 */
 	public boolean isPalindrome(int startNumber){
-		return startNumber == 0;
+		// check for negative number
+		startNumber = startNumber < 0 ? -startNumber : startNumber;
+		
+		int num = startNumber;
+		int reversed = 0;
+				
+		while (num > 0) {
+			// Get the last digit.
+			int lastDigit = num % 10;
+
+			// Remove with the last digit while digits are left
+			num /= 10;
+			
+			// add the last digit to the reversed num
+			reversed = reversed * 10 + lastDigit;
+
+		}
+		
+		return startNumber == reversed;
 	}
 
 }

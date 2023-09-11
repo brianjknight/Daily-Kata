@@ -1,5 +1,11 @@
 package com.smt.kata.letters;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /****************************************************************************
  * <b>Title</b>: ReorderLetters.java
  * <b>Project</b>: SMT-Kata
@@ -39,6 +45,61 @@ public class ReorderLetters {
 	 * @return Reordered word
 	 */
 	public String process(String word) {
-		return word;
+		String result = "";
+		
+		if (word == null || word.isEmpty()) {
+			return result;
+		}
+		
+		List<Letter> letters = getLetters(word);
+		
+		for (Letter l : letters) {
+			result += Character.toString(l.c).repeat(l.count);
+		}
+		
+		return result;
+	}
+	
+	List<Letter> getLetters(String word) { 
+		Map<Character, Integer> map = new HashMap<>();
+		
+		for (char c : word.toCharArray()) {
+			if (map.containsKey(c)) {
+				map.put(c, map.get(c) + 1);
+			} else {
+				map.put(c, 1);
+			}			
+		}
+		List<Letter>  list = new ArrayList<>();
+
+		for (Map.Entry<Character, Integer> e : map.entrySet()) {
+			list.add(new Letter(e.getKey(), e.getValue()));
+		}
+		
+		Collections.sort(list);
+		
+		return list;
+	}
+	
+	class Letter implements Comparable<Letter>{
+		Character c;
+		Integer count;;
+		Letter(char c, int count) {
+			this.c = c;
+			this.count = count;
+		}
+		
+		@Override
+		public int compareTo(Letter other) {
+			int result = other.count.compareTo(this.count);
+			if (result == 0) {
+				result = this.c.compareTo(other.c);
+			}
+			return result;
+		}
 	}
 }
+
+
+
+

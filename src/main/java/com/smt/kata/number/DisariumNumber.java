@@ -22,7 +22,18 @@ public class DisariumNumber {
 	 * @return
 	 */
 	public boolean isDisarium(int number) {
-		return number == 1;
+		// Keep a running total.
+		int sum = 0;
+		
+		// Convert the number to an array to loop through with index location.
+		char[] nums = String.valueOf(number).toCharArray();
+		
+		// Raise each number in the array to its index location and add it to the running total.
+		for (int i=0; i< nums.length; i++) {
+			sum += Math.pow( Integer.parseInt(nums[i]+""), i+1);
+		}
+		
+		return number == sum;
 	}
 
 }

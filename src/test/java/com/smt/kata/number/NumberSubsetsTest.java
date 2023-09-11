@@ -78,4 +78,9 @@ class NumberSubsetsTest {
 	void testFindMatachesLongNone() throws Exception {
 		assertFalse(ns.findMataches(new int[] {2, 4, 6, 8, 10, 12, 14, 16, 18, 73}));
 	}
+	
+	@Test
+	void testNewTest() throws Exception {
+		assertFalse(ns.findMataches(new int[] {1,3,5,25}));
+	}
 }

@@ -1,8 +1,13 @@
 package com.smt.kata.word;
 
+import static org.mockito.Mockito.CALLS_REAL_METHODS;
+import static org.mockito.Mockito.RETURNS_MOCKS;
+import static org.mockito.Mockito.RETURNS_SMART_NULLS;
+
 // JDK 11.x
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /****************************************************************************
  * <b>Title</b>: RepeatCounter.java
@@ -34,6 +39,21 @@ public class RepeatCounter {
 	 * @return Map with each object and it's count
 	 */
 	public Map<Object, Integer> calculate(Object[] items) {
+		//null & empty input check
+		if (items == null || items.length == 0) {
+			return counter;
+		}
+		
+		// Increment the count of an object in the map or add it with count of 1 if it does not exist.
+		for (Object o : items) { 
+			if (counter.containsKey(o)) {
+				counter.put(o, counter.get(o) + 1);
+			}
+			else {
+				counter.put(o, 1);
+			}
+		}
+		
 		return counter;
 	}
 	
@@ -58,5 +78,23 @@ public class RepeatCounter {
 		public Object getValue() { return value; }
 		public void setKey(Object key) { this.key = key; }
 		public void setValue(Object value) { this.value = value; }
+		
+		@Override
+		public int hashCode() {
+			return Objects.hash(key, value);
+		}
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			MyBean other = (MyBean) obj;
+			return Objects.equals(key, other.key) && Objects.equals(value, other.value);
+		}
+		
+		
 	}
 }

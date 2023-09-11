@@ -1,5 +1,7 @@
 package com.smt.kata.number;
 
+import java.util.Arrays;
+
 /****************************************************************************
  * <b>Title</b>: SparseNumber.java
  * <b>Project</b>: SMT-Kata
@@ -31,7 +33,23 @@ public class SparseNumber {
 	 * @return True if sparse, false otherwise
 	 */
 	public boolean isSparse(int val) {
-		return val > 0;
+		
+		// negative check
+		if (val < 0) {
+			val *= -1;
+		}
+		
+		// convert input to a binary string
+		char[] binary = Integer.toBinaryString(val).toCharArray();
+		
+		// check to see if there are adjacent ones
+		for (int i=0; i<binary.length-1; i++) {
+			if (Character.getNumericValue(binary[i])  == 1 && Character.getNumericValue(binary[i+1]) == 1) {
+				return false;
+			}
+		}
+		
+		return true;
 	}
 	
 	/**
@@ -40,6 +58,13 @@ public class SparseNumber {
 	 * @return Next sparse number
 	 */
 	public int findNext(int val) {
+		
+		val = Math.abs(val);
+		
+		while (!isSparse(val)) {
+			val++;
+		}
+		
 		return val;
 	}
 }

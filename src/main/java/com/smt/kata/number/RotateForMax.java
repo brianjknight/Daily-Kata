@@ -40,6 +40,21 @@ public class RotateForMax {
 	 * @return
 	 */
 	public long rotate(long input) {
-        return input;
-    }
+		// check for negative number
+		String num = String.valueOf(Math.abs(input));
+		// keep track of the max number to return
+		long max = Long.valueOf(num);
+			
+		// loop to rotate left for a subset
+		for (int i=0; i<num.length()-1; i++) {
+			String sub = num.substring(i);
+			String rotated = sub.substring(1,sub.length()) + sub.charAt(0);
+			num = num.substring(0,i) + rotated;
+			 
+			//update max value
+			max = Math.max(max, Long.valueOf(num));
+		}
+		
+        return max;
+    }	
 }

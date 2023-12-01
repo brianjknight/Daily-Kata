@@ -36,7 +36,28 @@ public class MaxConsecutiveOnes {
 	 * @return Count of the largest sequence of ones
 	 */
 	public int count(int[] values) {
-		return values.length;
+		// null & empty check
+		int longest = 0;
+		if (values == null || values.length == 0) {
+			return longest;
+		}
+		
+		// Use a nested loop. Starting from each index count the consecutive ones.
+		for (int i=0; i<values.length; i++) {
+			int count = 0;
+			for (int j=i; j<values.length; j++) {
+				if (values[j]==0) {break;}
+				if (values[j] == 1) {
+					count++;
+				}
+				// if number of consecutive ones is greater than max update max.
+				if (count > longest) {
+					longest = count;
+				}
+			}
+		}
+		
+		return longest;
 	}
 
 }

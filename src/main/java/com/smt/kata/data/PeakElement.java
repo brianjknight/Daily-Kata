@@ -1,5 +1,8 @@
 package com.smt.kata.data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /****************************************************************************
  * <b>Title</b>: PeakElement.java
  * <b>Project</b>: SMT-Kata
@@ -39,7 +42,20 @@ public class PeakElement {
 	 * @return Array of all peak element s (thier array index value)
 	 */
 	public Integer[] find(int[] elements) {
-		return new Integer[0];
+		if (elements == null || elements.length < 3) {
+			return new Integer[0];
+		}
+		
+		List<Integer> peaks = new ArrayList<>();
+		// iterate the input from index 1 to second to last index
+		for (int i=1; i<elements.length-1; i++) {
+			//if numbers left and right are less than add index to result
+			if (elements[i-1] < elements[i] && elements[i+1] < elements[i]) {
+				peaks.add(i);
+			}
+		}
+		
+		return peaks.toArray(new Integer[peaks.size()]);
 	}
 
 }
